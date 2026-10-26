@@ -35,3 +35,10 @@ Assistant as **Update** on the add-on.
 | `hp-scan-paperless/Dockerfile` | `manuc66/node-hp-scan-to` image plus the start script |
 | `hp-scan-paperless/run.sh` | turns the add-on options into the tool's settings |
 | `hp-scan-paperless/DOCS.md`, `translations/` | documentation and option texts in Home Assistant |
+
+## License
+
+[MIT](LICENSE) for this add-on (configuration and start script). The add-on builds on the
+[node-hp-scan-to](https://github.com/manuc66/node-hp-scan-to) Docker image by Emmanuel Counasse,
+which is also MIT-licensed. HP and OfficeJet are trademarks of HP Inc.; this project is not
+affiliated with HP.
