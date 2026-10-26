@@ -1,0 +1,25 @@
+configuration:
+  printer_ip:
+    name: Printer IP address
+    description: Fixed IP of the HP printer (DHCP reservation in the router), e.g. 192.168.1.50
+  label:
+    name: Name on the printer
+    description: Shown on the printer under Scan → Computer
+  paperless_url:
+    name: Paperless address
+    description: e.g. https://paperless.example.com (without /api/...)
+  paperless_token:
+    name: Paperless API token
+    description: Paperless → My Profile → API Auth Token
+  resolution:
+    name: Resolution (dpi)
+    description: 300 is good for text recognition
+  mode:
+    name: Colour mode
+    description: Gray keeps files small; Color for photos and coloured forms
+  multi_page_pdf:
+    name: Multi-page scan as one PDF
+    description: All pages of one scan become one document (otherwise one document per page)
+  debug:
+    name: Debug log
+    description: More details in the add-on log

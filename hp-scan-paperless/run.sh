@@ -1,0 +1,36 @@
+#!/command/with-contenv bash
+# Home Assistant add-on options (/data/options.json) -> environment of node-hp-scan-to's /app.sh.
+# /app.sh starts with "with-contenv", which takes the environment from s6's container
+# environment folder, so the values are written there (exported variables would be lost).
+set -e
+ENVDIR=/run/s6/container_environment
+
+opt() {
+    node -e 'const o = require("/data/options.json"); const v = o[process.argv[1]];
+             process.stdout.write(v === undefined || v === null ? "" : String(v))' "$1"
+}
+
+export IP="$(opt printer_ip)"
+export LABEL="$(opt label)"
+export RESOLUTION="$(opt resolution)"
+export MODE="$(opt mode)"
+export PATTERN='"scan"_yyyy-mm-dd_HH-MM-ss'
+url="$(opt paperless_url)"
+export PAPERLESS_POST_DOCUMENT_URL="${url%/}/api/documents/post_document/"
+export PAPERLESS_TOKEN="$(opt paperless_token)"
+
+CMDLINE=""
+[ "$(opt multi_page_pdf)" = "true" ] && CMDLINE="$CMDLINE --paperless-group-multi-page-scan-into-a-pdf"
+[ "$(opt debug)" = "true" ] && CMDLINE="$CMDLINE -D"
+export CMDLINE
+
+for var in IP LABEL RESOLUTION MODE PATTERN PAPERLESS_POST_DOCUMENT_URL PAPERLESS_TOKEN CMDLINE; do
+    printf '%s' "${!var}" > "$ENVDIR/$var"
+done
+
+if [ -z "$IP" ] || [ -z "$url" ] || [ -z "$PAPERLESS_TOKEN" ]; then
+    echo "Set printer_ip, paperless_url and paperless_token in the add-on configuration, then restart the add-on."
+    exit 1
+fi
+echo "Printer $IP, label \"$LABEL\", upload to $PAPERLESS_POST_DOCUMENT_URL"
+exec /app.sh

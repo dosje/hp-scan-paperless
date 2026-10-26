@@ -1,0 +1,32 @@
+# Home Assistant add-on (local): HP "Scan to Computer" -> Paperless-ngx.
+# Wraps node-hp-scan-to (https://github.com/manuc66/node-hp-scan-to).
+name: HP Scan to Paperless
+version: "1.11.1-2"
+slug: hp_scan_paperless
+description: Scan on the HP printer (Scan to Computer) and upload to Paperless-ngx
+url: https://github.com/dosje/hp-scan-paperless
+arch:
+  - aarch64
+  - amd64
+  - armv7
+init: false
+startup: application
+boot: auto
+options:
+  printer_ip: ""
+  label: Paperless
+  paperless_url: ""
+  paperless_token: ""
+  resolution: 300
+  mode: Gray
+  multi_page_pdf: true
+  debug: false
+schema:
+  printer_ip: str
+  label: str
+  paperless_url: str
+  paperless_token: password
+  resolution: int(75,600)
+  mode: list(Gray|Color)
+  multi_page_pdf: bool
+  debug: bool
