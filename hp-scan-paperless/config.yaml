@@ -1,4 +1,4 @@
-# Home Assistant add-on (local): HP "Scan to Computer" -> Paperless-ngx.
+# Home Assistant add-on: HP "Scan to Computer" -> Paperless-ngx.
 # Wraps node-hp-scan-to (https://github.com/manuc66/node-hp-scan-to).
 name: HP Scan to Paperless
 version: "1.11.1-2"
